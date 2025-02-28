@@ -1,0 +1,96 @@
+.container-hero-about-us {
+    background-image: url('../img-optimizado/background.about.jpg');
+    height: 700px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.about-contents {padding: 5em 0;}
+
+.about-origin { display: flex; flex-direction: column;}
+
+.img-origin-nectar {
+    flex-shrink: 3;
+    margin-inline: auto;
+}
+
+.content-txt {
+    flex-shrink: 5;
+    align-self: center;
+    margin: 0 18px;
+}
+
+.title-about, .title-chefs-about {
+    font-size: 2em;
+    margin-bottom: 20px;
+    font-family: var(--fuente-title);
+}
+
+.content-txt > p{
+    padding: 10px 0;
+    line-height: 29px;
+    font-size: 1.3em;
+}
+
+.content-txt > p::first-letter {
+    font-size: 1.7em;
+    font-family: var(--fuente-title);
+}
+
+.title-founders, .title-chefs-about {
+    font-size: 3em;
+    text-align: center;
+}
+
+
+
+.container-cards-about {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.ceo-about, .cards-founders, .cards-chefs-about, .chef-principal {
+    width: 100%;
+    max-width: 400px;
+    border: 1px solid #000;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    -webkit-box-shadow: 1px 1px 24px 3px rgba(0,0,0,0.82);
+    -moz-box-shadow: 1px 1px 24px 3px rgba(0,0,0,0.82);
+    box-shadow: 1px 1px 24px 3px rgba(0,0,0,0.82);
+    margin: 17px auto;
+}
+
+.cards-founders {
+    flex-grow: 0;
+}
+
+.title-user, .title-description {
+    text-align: center;
+    font-size: 1.85em;
+    font-family: var(--fuente-title);
+    margin: 12px 0;
+}
+
+.description-users-nectar{
+    padding: 1em 50px;
+}
+
+.img-user {
+    margin: 0 auto; 
+    width: 83%;
+    height: 310px;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1204px) {
+    .container-cards-seos { display: flex; flex-wrap: wrap;}
+    .about-origin {flex-direction: row;}
+}
+
+@media only screen and (min-width: 1205px) and (max-width: 4000px) {
+    .container-cards-seos { display: flex;}
+    .about-origin {flex-direction: row;}
+}

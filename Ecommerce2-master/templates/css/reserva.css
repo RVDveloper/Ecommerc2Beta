@@ -1,0 +1,121 @@
+:root {
+    --color-nectar: #ac0000;
+    --fuente-nectar: 'Playfair Display', serif;
+}
+
+/*<------------------------ Reservas Citas Section ------------------------>*/
+
+body {background-color: #000; color: #fff;}
+
+.form-reserva {
+    background-image: url('../img-optimizado/cafe-hero.jpg');
+    height: 100vh;
+    max-height: 100%;
+    background-size: cover;
+    background-position: center center;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.title-reserva {
+    font-size: 2.2em;
+    font-family: var(--fuente-nectar);
+    color: var(--color-nectar);
+    text-shadow: 6px 4px 5px black;
+}
+
+.formulary {
+    background-color: #0000006b;
+    padding: 25px;
+    border-radius: 20px;
+    overflow: auto;
+}
+
+.form-ul {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+    
+}
+
+.form_ul_li {position: relative; padding: 10px; }
+
+.form_ul_li input {
+    background: transparent;
+    border: none;
+    width: 100%;
+    outline: none;
+    border-bottom: 1px solid #fff;
+    color: #fff;
+}
+
+.wrapper .form_ul_li label {
+    position: absolute;
+    top:-3px;
+    left: 8px;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #fff;
+    pointer-events: none;
+    transition: .5s;
+}
+  
+  .wrapper .form_ul_li input:focus ~ label,
+  .wrapper .form_ul_li input:valid ~ label {
+    top: -20px;
+    left: 0;
+    color: var(--color-nectar);
+    font-size: 12px;
+  }
+  
+
+.float {
+    margin-top: 2em;
+    float: right;
+    outline: none;
+    background: var(--color-nectar);
+    border: none;
+    display: block;
+    border-radius: 9px;
+    outline: none;
+    padding: 12px;
+    color: #fff;
+}
+
+.title-reserva-summary {font-size: 2.3em; padding-top: 17px;  text-align: center;}
+
+/* <------------------- End Services ------------------------>*/
+
+/* <--------------- Reserves Delivery -------------------->*/
+
+.reserve-container {
+    padding-top: 9em;
+    background-image: url('../img-optimizado/bg_3.jpg');
+    height: 79vh;
+}
+
+.delivery {background-color: #00000036;}
+
+.ul-items-form { display: flex;}
+
+.ul-items-form li {padding: 16px 15px 29px;}
+
+
+
+@media only screen and (max-width: 767px) {
+    .delivery {
+        flex-direction: column-reverse;
+    }
+
+    iframe {
+        width: 100% !important;
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1204px) {
+    .title-reserva {font-size: 4em;}
+}

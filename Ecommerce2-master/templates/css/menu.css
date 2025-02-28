@@ -1,0 +1,138 @@
+:root {
+    --color-nectar: #ac0000;
+    --fuente-nectar: 'Playfair Display', serif;
+}
+
+.background_main_carta {
+    background-image: url('../img-optimizado/bg_2.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 700px;
+    background-attachment: fixed;
+}
+
+.summary {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: repeat(auto-fill, minmax(315px, 458px));
+    column-gap: 14em; 
+    max-width: 1145px;
+    
+}
+
+.summary-startup, .summary-drinks, .summary-coffe, .summary-desserts {    
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    margin: 36px 0;
+}
+
+.cards-starts, .cards-drinks, .cards-coffe, .cards-dessert {
+    display: flex;
+    align-items: center;
+}
+
+.title-startup {
+    font-size: 2em;
+    font-family: var(--fuente-nectar);
+    font-weight: bold;
+}
+
+
+#popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: black;
+    color: #fff;
+    border: 1px solid #ccc;
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    height: 100vh;
+    width: 100%;
+}
+
+
+.img-sumary {
+    width: 170px;
+    height: 84px;
+    border-radius: 50%;    
+}
+
+.text-float {
+    display: flex;
+    flex-direction: column;
+    /* align-items: flex-start; */
+    gap: 12px;
+    margin: 0 16px;
+}
+
+.text-float > h3 {
+    font-size: 1.5em;
+}
+
+.text-float > h3::after {
+    content: '';
+    color: #ff0505;
+}
+
+.starts-price {    
+    align-self: flex-start;
+    margin-top: 16px;
+}
+
+.width-exp {height: 91px; width: 88px;}
+
+.title_category, .title-drinks {
+    font-family: var(--fuente-nectar);
+    color: var(--color-nectar);
+    text-align: center;
+    font-size: 5em;
+    padding: .4em 0;
+}
+
+.title-drinks {font-size: 3em; font-weight: bold; margin: 1em 0;}
+
+.container-cards {
+    /* display: flex;
+    flex-wrap: wrap;
+    gap: 10px; */
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(261px, 376px));
+    column-gap: 30px;
+    row-gap: 59px;
+    margin-top: 30px;
+}
+
+.card-main h2{
+    text-align: center;
+    font-size: 1.7rem;
+    color: var(--color-nectar);
+}
+
+.card-main p {
+    font-size: 1.3em;
+    text-align: center;
+}
+
+.drinks-img-widths {
+  border-radius: 13px;
+    width: 100%;
+  height: 380px;
+}
+
+.coffes {
+    padding-bottom: 20px;
+}
+
+@media only screen and (max-width: 767px) {
+    .summary {gap: 2.4em; margin: 0 50px;}
+    .container-cards {flex-direction: column;}
+    .main-drinks {margin: 0 60px;}
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1204px) {
+    .summary {column-gap: 7em; margin: 0 38px;}  
+}
