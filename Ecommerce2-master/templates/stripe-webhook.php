@@ -1,4 +1,15 @@
 <?php
+// Permitir solicitudes desde cualquier origen
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type, Stripe-Signature, *');
+
+// Si es una solicitud OPTIONS, responder inmediatamente
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit();
+}
+
 require_once '../vendor/autoload.php';
 require_once '../bd.php';
 
@@ -47,8 +58,22 @@ function logMessage($type, $message, $data = []) {
 logMessage('INFO', 'Webhook script iniciado', [
     'time' => time(),
     'request_method' => $_SERVER['REQUEST_METHOD'] ?? 'UNKNOWN',
-    'remote_addr' => $_SERVER['REMOTE_ADDR'] ?? 'UNKNOWN'
+    'remote_addr' => $_SERVER['REMOTE_ADDR'] ?? 'UNKNOWN',
+    'http_host' => $_SERVER['HTTP_HOST'] ?? 'UNKNOWN',
+    'request_uri' => $_SERVER['REQUEST_URI'] ?? 'UNKNOWN',
+    'server_software' => $_SERVER['SERVER_SOFTWARE'] ?? 'UNKNOWN',
+    'https' => isset($_SERVER['HTTPS']) ? 'yes' : 'no',
+    'all_headers' => getallheaders()
 ]);
+
+// Verificar que estamos en la URL correcta
+$expected_host = 'severely-equal-yeti.ngrok-free.app';
+if ($_SERVER['HTTP_HOST'] !== $expected_host) {
+    logMessage('WARNING', 'Host incorrecto', [
+        'expected' => $expected_host,
+        'received' => $_SERVER['HTTP_HOST']
+    ]);
+}
 
 try {
     $payload = @file_get_contents('php://input');
@@ -56,8 +81,16 @@ try {
     
     logMessage('DEBUG', 'Verificando firma del webhook', [
         'payload_length' => strlen($payload),
-        'has_signature' => !empty($sig_header)
+        'has_signature' => !empty($sig_header),
+        'signature' => $sig_header,
+        'headers' => getallheaders(),
+        'raw_payload' => $payload
     ]);
+
+    if (empty($payload)) {
+        logMessage('ERROR', 'Payload vacío');
+        throw new Exception('No se recibió payload');
+    }
 
     try {
         $event = \Stripe\Webhook::constructEvent(
@@ -86,6 +119,11 @@ try {
             'session_id' => $session->id,
             'amount' => $session->amount_total
         ]);
+
+        // Verificar conexión a la base de datos
+        if (!$conn || $conn->connect_error) {
+            throw new Exception("Error de conexión a la base de datos: " . ($conn ? $conn->connect_error : "No hay conexión"));
+        }
 
         // Actualizar el estado del pedido
         $stmt = $conn->prepare("UPDATE pedidos SET estado = 'completado' WHERE session_id = ?");
@@ -171,6 +209,10 @@ try {
 
         http_response_code(200);
         echo json_encode(['status' => 'success']);
+    } else {
+        logMessage('INFO', 'Evento ignorado', ['type' => $event->type]);
+        http_response_code(200);
+        echo json_encode(['status' => 'ignored']);
     }
 
 } catch (Exception $e) {
